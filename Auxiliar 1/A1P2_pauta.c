@@ -56,4 +56,14 @@ uint buscarFactorParalelo(ulonglong x, uint i, uint j){
     return factor;
 }
 
+int main(int argc, char const *argv[])
+{
+    ulonglong x = 600851475143;
+    uint i = 2;
+    uint j = sqrt(x);
+    
+    return 0;
+}
+
+
 
