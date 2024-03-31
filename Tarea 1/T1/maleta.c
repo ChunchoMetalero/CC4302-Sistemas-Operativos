@@ -24,7 +24,6 @@ typedef struct {
   double maxW;
   int k;
   double res;
-  
 } Args;
 
 void *thread(void *p) {
@@ -46,7 +45,6 @@ double llenarMaletaPar(double w[], double v[], int z[], int n, double maxW, int 
   int best = 0;
   int intervalo = k/P;
   for (int h = 0; h < P; h++) {
-    
     args[h].w = w;
     args[h].v = v;
     int *j = (int *)malloc(n * sizeof(int));
@@ -60,20 +58,20 @@ double llenarMaletaPar(double w[], double v[], int z[], int n, double maxW, int 
   double res = -1;
   for (int h = 0; h < P; h++) {
     pthread_join(pid[h], NULL);
-    printf("res: %f\n", args[h].res);
-    
     if (res < args[h].res){
       res = args[h].res;
       best = h;
     }
   }
+
   for (int h = 0; h < n; h++) {
     z[h] = args[best].z[h];
   }
+
   for (int h = 0; h < P; h++) {
     free(args[h].z);
   }
-
+  
   return res;
 }
 
