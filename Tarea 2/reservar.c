@@ -72,17 +72,16 @@ int reservar(int k) {
   for (int i = contiguos.primer_estacionamiento; i < contiguos.primer_estacionamiento + k; i++){
     estacionamientos[i] = 1;
   }
-  llegada++;
   pthread_mutex_unlock(&m);
   return contiguos.primer_estacionamiento;
 }
 
 void liberar(int e, int k) {
   pthread_mutex_lock(&m);
-  turno++;
   for (int i = e; i < e + k; i++){
     estacionamientos[i] = 0;
   }
+  turno++;
   pthread_cond_broadcast(&c);
   pthread_mutex_unlock(&m);
 } 
