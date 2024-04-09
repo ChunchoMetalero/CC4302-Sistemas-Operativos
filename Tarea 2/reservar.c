@@ -21,8 +21,10 @@ pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;
 pthread_cond_t c = PTHREAD_COND_INITIALIZER;
 
 int estacionamientos[NUM_ESTACIONAMIENTOS] = {0}; // 0 indica disponible, 1 indica ocupado
-int llegada = 0;
-int turno = 0;
+
+int ticket_dist = 0, display = 0;
+int readers = 0;
+
 
 Contiguos cantidadContiguosDisponibles(int k){
   int i = 0;
@@ -44,44 +46,38 @@ Contiguos cantidadContiguosDisponibles(int k){
     if (contiguos.consecutivos == k) break;
     else contiguos.consecutivos = 0;
   }
-
   return contiguos;
 }
 
 void initReservar() {
-  for (int i = 0; i < NUM_ESTACIONAMIENTOS; i++){
-    estacionamientos[i] = 0;
-  }
-  llegada = 0;
-  turno = 0;
 }
 
 void cleanReservar() {
-  pthread_mutex_destroy(&m);
-  pthread_cond_destroy(&c);
 }
 
 int reservar(int k) {
   pthread_mutex_lock(&m);
-  int my_turn = llegada++;
+  int my_num = ticket_dist++;
+
   Contiguos contiguos = cantidadContiguosDisponibles(k);
-  while (contiguos.consecutivos < k && my_turn != turno){
+  while (my_num > display || contiguos.consecutivos < k) {
     pthread_cond_wait(&c, &m);
+    contiguos = cantidadContiguosDisponibles(k);
   }
-  contiguos = cantidadContiguosDisponibles(k);
-  for (int i = contiguos.primer_estacionamiento; i < contiguos.primer_estacionamiento + k; i++){
+  for (int i = contiguos.primer_estacionamiento; i < contiguos.primer_estacionamiento + k; i++) {
     estacionamientos[i] = 1;
   }
+  display++;
+  pthread_cond_broadcast(&c);
   pthread_mutex_unlock(&m);
   return contiguos.primer_estacionamiento;
 }
 
 void liberar(int e, int k) {
   pthread_mutex_lock(&m);
-  for (int i = e; i < e + k; i++){
+  for (int i = e; i < e + k; i++) {
     estacionamientos[i] = 0;
   }
-  turno++;
   pthread_cond_broadcast(&c);
   pthread_mutex_unlock(&m);
 } 
