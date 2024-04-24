@@ -38,8 +38,8 @@ gcc -g -DSAN=1 -fsanitize=address -fsanitize=undefined -Wall -Werror -pedantic -
 5: mercedes libera 3 estacionamientos desde 2
 5: chevrolet reserva 6 estacionamiento desde 0
 5: suzuki reserva 1 estacionamiento desde 6
-6: suzuki libera 1 estacionamientos desde 6
 6: chevrolet libera 6 estacionamientos desde 0
+6: suzuki libera 1 estacionamientos desde 6
 --- Test: un test mas completo ----
 1: chevrolet solicita 6 estacionamientos
 1: chevrolet reserva 6 estacionamiento desde 0
@@ -47,10 +47,10 @@ gcc -g -DSAN=1 -fsanitize=address -fsanitize=undefined -Wall -Werror -pedantic -
 2: toyota reserva 4 estacionamiento desde 6
 3: renault solicita 2 estacionamientos
 4: mg solicita 2 estacionamientos
-5: suzuki solicita 1 estacionamientos
 5: toyota libera 4 estacionamientos desde 6
 5: renault reserva 2 estacionamiento desde 6
 5: mg reserva 2 estacionamiento desde 8
+5: suzuki solicita 1 estacionamientos
 6: chevrolet libera 6 estacionamientos desde 0
 6: suzuki reserva 1 estacionamiento desde 0
 6: ford solicita 6 estacionamientos
@@ -63,8 +63,8 @@ gcc -g -DSAN=1 -fsanitize=address -fsanitize=undefined -Wall -Werror -pedantic -
 11: suzuki libera 1 estacionamientos desde 0
 11: ford libera 6 estacionamientos desde 1
 11: bmw reserva 7 estacionamiento desde 0
-12: bmw libera 7 estacionamientos desde 0
 12: mercedes libera 3 estacionamientos desde 7
+12: bmw libera 7 estacionamientos desde 0
 Test de robustez -------------------------------------
 Felicitaciones: aprobo todos los tests
 ==== run-g ====
@@ -101,12 +101,12 @@ gcc -g -Wall -Werror -pedantic -std=c18 -Wno-unused-function  test-reservar.c re
 2: mercedes reserva 3 estacionamiento desde 2
 3: chevrolet solicita 6 estacionamientos
 4: suzuki solicita 1 estacionamientos
-5: mercedes libera 3 estacionamientos desde 2
-5: chevrolet reserva 6 estacionamiento desde 2
-5: suzuki reserva 1 estacionamiento desde 8
 5: renault libera 2 estacionamientos desde 0
-6: chevrolet libera 6 estacionamientos desde 2
-6: suzuki libera 1 estacionamientos desde 8
+5: mercedes libera 3 estacionamientos desde 2
+5: chevrolet reserva 6 estacionamiento desde 0
+5: suzuki reserva 1 estacionamiento desde 6
+6: chevrolet libera 6 estacionamientos desde 0
+6: suzuki libera 1 estacionamientos desde 6
 --- Test: un test mas completo ----
 1: chevrolet solicita 6 estacionamientos
 1: chevrolet reserva 6 estacionamiento desde 0
@@ -114,10 +114,10 @@ gcc -g -Wall -Werror -pedantic -std=c18 -Wno-unused-function  test-reservar.c re
 2: toyota reserva 4 estacionamiento desde 6
 3: renault solicita 2 estacionamientos
 4: mg solicita 2 estacionamientos
+5: suzuki solicita 1 estacionamientos
 5: toyota libera 4 estacionamientos desde 6
 5: renault reserva 2 estacionamiento desde 6
 5: mg reserva 2 estacionamiento desde 8
-5: suzuki solicita 1 estacionamientos
 6: chevrolet libera 6 estacionamientos desde 0
 6: suzuki reserva 1 estacionamiento desde 0
 6: ford solicita 6 estacionamientos
@@ -127,8 +127,8 @@ gcc -g -Wall -Werror -pedantic -std=c18 -Wno-unused-function  test-reservar.c re
 9: renault libera 2 estacionamientos desde 6
 9: ford reserva 6 estacionamiento desde 1
 9: mercedes reserva 3 estacionamiento desde 7
-11: suzuki libera 1 estacionamientos desde 0
 11: ford libera 6 estacionamientos desde 1
+11: suzuki libera 1 estacionamientos desde 0
 11: bmw reserva 7 estacionamiento desde 0
 12: mercedes libera 3 estacionamientos desde 7
 12: bmw libera 7 estacionamientos desde 0
@@ -172,8 +172,8 @@ gcc -O -DOPT=1 -Wall -Werror -pedantic -std=c18 -Wno-unused-function  test-reser
 5: mercedes libera 3 estacionamientos desde 2
 5: chevrolet reserva 6 estacionamiento desde 0
 5: suzuki reserva 1 estacionamiento desde 6
-6: suzuki libera 1 estacionamientos desde 6
 6: chevrolet libera 6 estacionamientos desde 0
+6: suzuki libera 1 estacionamientos desde 6
 --- Test: un test mas completo ----
 1: chevrolet solicita 6 estacionamientos
 1: chevrolet reserva 6 estacionamiento desde 0
@@ -197,7 +197,7 @@ gcc -O -DOPT=1 -Wall -Werror -pedantic -std=c18 -Wno-unused-function  test-reser
 11: suzuki libera 1 estacionamientos desde 0
 11: ford libera 6 estacionamientos desde 1
 11: bmw reserva 7 estacionamiento desde 0
-12: bmw libera 7 estacionamientos desde 0
 12: mercedes libera 3 estacionamientos desde 7
+12: bmw libera 7 estacionamientos desde 0
 Test de robustez -------------------------------------
 Felicitaciones: aprobo todos los tests

@@ -23,8 +23,6 @@ pthread_cond_t c = PTHREAD_COND_INITIALIZER;
 int estacionamientos[NUM_ESTACIONAMIENTOS] = {0}; // 0 indica disponible, 1 indica ocupado
 
 int ticket_dist = 0, display = 0;
-int readers = 0;
-
 
 Contiguos cantidadContiguosDisponibles(int k){
   int i = 0;
