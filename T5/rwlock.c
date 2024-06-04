@@ -21,6 +21,13 @@ nRWLock *nMakeRWLock() {
   return rwl;
 }
 
+void eliminate(nThread th) {
+  NthQueue *queue = (NthQueue *)th->ptr;
+  nth_delQueue(queue, th);
+  th->ptr = NULL;
+}
+
+
 void nDestroyRWLock(nRWLock *rwl) {
   nth_destroyQueue(rwl->queue_readers);
   nth_destroyQueue(rwl->queue_writters);
@@ -50,8 +57,23 @@ int nEnterWrite(nRWLock *rwl, int timeout) {
   else{
     nThread this_th = nSelf();
     nth_putBack(rwl->queue_writters, this_th);
-    suspend(WAIT_RWLOCK);
+    this_th->ptr = rwl->queue_writters;
+    if(timeout > 0) {
+      suspend(WAIT_RWLOCK_TIMEOUT);
+      nth_programTimer(timeout*1000000LL,eliminate);
+    }
+    else {
+      suspend(WAIT_RWLOCK);
+    }
     schedule();
+    if (this_th->ptr == NULL){
+      END_CRITICAL
+      return 0;
+    }
+    else{
+      END_CRITICAL
+      return 1;
+    }
   }
   END_CRITICAL
   return 1;
@@ -64,6 +86,9 @@ void nExitRead(nRWLock *rwl) {
 
   if(rwl->readers == 0 && !nth_emptyQueue(rwl->queue_writters)){
     nThread th = nth_getFront(rwl->queue_writters);
+    if(th->status == WAIT_RWLOCK_TIMEOUT){
+      nth_cancelThread(th);
+    }
     setReady(th);
     rwl->writters++;
   }
@@ -85,6 +110,9 @@ void nExitWrite(nRWLock *rwl) {
   }
   else if(nth_emptyQueue(rwl->queue_readers) && !nth_emptyQueue(rwl->queue_writters)){
     nThread th = nth_getFront(rwl->queue_writters);
+    if(th->status == WAIT_RWLOCK_TIMEOUT){
+      nth_cancelThread(th);
+    }
     setReady(th);
     rwl->writters++;
   }
