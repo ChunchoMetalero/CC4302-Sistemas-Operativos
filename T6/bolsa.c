@@ -12,11 +12,11 @@
 int mutex = OPEN;
 int min_price = 0;
 
-char *seller = NULL; //direccion del string con el nombre del vendedor
-char *buyer = NULL; //direccion en donde el comprador debe copiar su nombre
+char *seller = NULL; 
+char *buyer = NULL; 
 
-int *seller_state = NULL; //direccion de la variable que indica el estado del vendedor
-int *seller_mutex = NULL; //direccion de la variable que indica si el vendedor esta ocupado o no
+int *seller_state = NULL; 
+int *seller_mutex = NULL; 
 
 int vendo(int precio, char *vendedor, char *comprador) {
   spinLock(&mutex);
@@ -39,19 +39,18 @@ int vendo(int precio, char *vendedor, char *comprador) {
 
   min_price = precio;
   seller = vendedor;
+  buyer = comprador;
 
   spinUnlock(&mutex);
 
-  spinLock(&lk);
+  spinLock(&lk); // Espera a que el comprador compre
   spinLock(&mutex);
 
   if(state == 1) {
-    strcpy(comprador, buyer);
-    min_price = 0;
-    seller = NULL;
     spinUnlock(&mutex);
     return 1;
   }
+
   else{
     spinUnlock(&mutex);
     return 0;
@@ -61,15 +60,19 @@ int vendo(int precio, char *vendedor, char *comprador) {
 int compro(char *comprador, char *vendedor) {
   spinLock(&mutex);
 
+
   if(min_price == 0){
     spinUnlock(&mutex);
     return 0;
   }
 
-  buyer = comprador;
   strcpy(vendedor, seller);
-
+  strcpy(buyer, comprador);
+  
+  min_price = 0;
+  seller = NULL;
   *seller_state = 1;
+  
   spinUnlock(seller_mutex);
   spinUnlock(&mutex);
   return min_price;

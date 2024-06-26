@@ -1,0 +1,326 @@
+Sistema operativo utilizado
+Linux DESKTOP-7NBPK3M 5.15.146.1-microsoft-standard-WSL2 #1 SMP Thu Jan 11 04:09:03 UTC 2024 x86_64 GNU/Linux
+==== run-san ====
+gcc -g -DSAN=1 -fsanitize=address -fsanitize=undefined -Wall -Werror -pedantic -std=c18  test-bolsa.c bolsa.c pss.c spinlocks.c swap-x86_64.s -lm -lpthread -o bolsa.bin-san
+./bolsa.bin-san
+Prueba con spinlocks implementados con mutex sin busywaiting
+El test del enunciado
+Se lanzo pedro
+pedro: vendo a 10
+Se lanzo juan
+juan: vendo a 5
+pedro: 1era. venta rechazada
+pedro: vendo a 7
+pedro: 2da. venta rechazada
+Se lanzo diego
+diego: compro
+diego: ok
+juan: ok
+Test del enunciado aprobado
+
+-------------
+El test del enunciado nuevamente
+Se lanzo pedro
+pedro: vendo a 10
+Se lanzo juan
+juan: vendo a 5
+pedro: 1era. venta rechazada
+pedro: vendo a 7
+pedro: 2da. venta rechazada
+Se lanzo diego
+diego: compro
+diego: ok
+juan: ok
+Test del enunciado aprobado
+
+--------------------
+El test de robustez: se lanzaran 10 compradores y 100 vendedores
+Cada comprador intentara 3000 compras
+Cada . son 1000 compraventas exitosas
+Partieron
+............................
+comp0 hara una pausa de 3 segundos
+comp0 hara la ultima compra
+comp0 hizo 2879 compras
+comp1 hizo 2873 compras
+comp2 hizo 2864 compras
+comp3 hizo 2825 compras
+comp4 hizo 2899 compras
+comp5 hizo 2851 compras
+comp6 hizo 2865 compras
+comp7 hizo 2880 compras
+comp8 hizo 2884 compras
+comp9 hizo 2862 compras
+Se hicieron en total 28682 compras
+Ok
+
+===============================================
+Prueba con spinlocks verdaderos con busywaiting
+===============================================
+
+El test del enunciado
+Se lanzo pedro
+pedro: vendo a 10
+Se lanzo juan
+juan: vendo a 5
+pedro: 1era. venta rechazada
+pedro: vendo a 7
+pedro: 2da. venta rechazada
+Se lanzo diego
+diego: compro
+diego: ok
+juan: ok
+Test del enunciado aprobado
+
+-------------
+El test del enunciado nuevamente
+Se lanzo pedro
+pedro: vendo a 10
+Se lanzo juan
+juan: vendo a 5
+pedro: 1era. venta rechazada
+pedro: vendo a 7
+pedro: 2da. venta rechazada
+Se lanzo diego
+diego: compro
+diego: ok
+juan: ok
+Test del enunciado aprobado
+
+--------------------
+El test de robustez: se lanzaran 10 compradores y 100 vendedores
+Cada comprador intentara 3000 compras
+Cada . son 1000 compraventas exitosas
+Partieron
+.....................
+comp0 hara una pausa de 3 segundos
+comp0 hara la ultima compra
+comp0 hizo 2924 compras
+comp1 hizo 2470 compras
+comp2 hizo 2410 compras
+comp3 hizo 2827 compras
+comp4 hizo 877 compras
+comp5 hizo 1031 compras
+comp6 hizo 2653 compras
+comp7 hizo 1790 compras
+comp8 hizo 1927 compras
+comp9 hizo 2159 compras
+Se hicieron en total 21068 compras
+Ok
+Felicitaciones.  Su tarea paso todos los tests
+==== run-g ====
+gcc -g -Wall -Werror -pedantic -std=c18  test-bolsa.c bolsa.c pss.c spinlocks.c swap-x86_64.s -lm -lpthread -o bolsa.bin-g
+./bolsa.bin-g
+Prueba con spinlocks implementados con mutex sin busywaiting
+El test del enunciado
+Se lanzo pedro
+pedro: vendo a 10
+Se lanzo juan
+juan: vendo a 5
+pedro: 1era. venta rechazada
+pedro: vendo a 7
+pedro: 2da. venta rechazada
+Se lanzo diego
+diego: compro
+diego: ok
+juan: ok
+Test del enunciado aprobado
+
+-------------
+El test del enunciado nuevamente
+Se lanzo pedro
+pedro: vendo a 10
+Se lanzo juan
+juan: vendo a 5
+pedro: 1era. venta rechazada
+pedro: vendo a 7
+pedro: 2da. venta rechazada
+Se lanzo diego
+diego: compro
+diego: ok
+juan: ok
+Test del enunciado aprobado
+
+--------------------
+El test de robustez: se lanzaran 10 compradores y 100 vendedores
+Cada comprador intentara 3000 compras
+Cada . son 1000 compraventas exitosas
+Partieron
+............................
+comp0 hara una pausa de 3 segundos
+comp0 hara la ultima compra
+comp0 hizo 2866 compras
+comp1 hizo 2851 compras
+comp2 hizo 2875 compras
+comp3 hizo 2871 compras
+comp4 hizo 2881 compras
+comp5 hizo 2873 compras
+comp6 hizo 2890 compras
+comp7 hizo 2884 compras
+comp8 hizo 2872 compras
+comp9 hizo 2854 compras
+Se hicieron en total 28717 compras
+Ok
+
+===============================================
+Prueba con spinlocks verdaderos con busywaiting
+===============================================
+
+El test del enunciado
+Se lanzo pedro
+pedro: vendo a 10
+Se lanzo juan
+juan: vendo a 5
+pedro: 1era. venta rechazada
+pedro: vendo a 7
+pedro: 2da. venta rechazada
+Se lanzo diego
+diego: compro
+diego: ok
+juan: ok
+Test del enunciado aprobado
+
+-------------
+El test del enunciado nuevamente
+Se lanzo pedro
+pedro: vendo a 10
+Se lanzo juan
+juan: vendo a 5
+pedro: 1era. venta rechazada
+pedro: vendo a 7
+pedro: 2da. venta rechazada
+Se lanzo diego
+diego: compro
+diego: ok
+juan: ok
+Test del enunciado aprobado
+
+--------------------
+El test de robustez: se lanzaran 10 compradores y 100 vendedores
+Cada comprador intentara 3000 compras
+Cada . son 1000 compraventas exitosas
+Partieron
+............................
+comp0 hara una pausa de 3 segundos
+comp0 hara la ultima compra
+comp0 hizo 2906 compras
+comp1 hizo 2892 compras
+comp2 hizo 2894 compras
+comp3 hizo 2895 compras
+comp4 hizo 2893 compras
+comp5 hizo 2912 compras
+comp6 hizo 2890 compras
+comp7 hizo 2901 compras
+comp8 hizo 2895 compras
+comp9 hizo 2829 compras
+Se hicieron en total 28907 compras
+Ok
+Felicitaciones.  Su tarea paso todos los tests
+==== run ====
+gcc -O -DOPT=1 -Wall -Werror -pedantic -std=c18  test-bolsa.c bolsa.c pss.c spinlocks.c swap-x86_64.s -lm -lpthread -o bolsa.bin
+./bolsa.bin
+Prueba con spinlocks implementados con mutex sin busywaiting
+El test del enunciado
+Se lanzo pedro
+pedro: vendo a 10
+Se lanzo juan
+juan: vendo a 5
+pedro: 1era. venta rechazada
+pedro: vendo a 7
+pedro: 2da. venta rechazada
+Se lanzo diego
+diego: compro
+diego: ok
+juan: ok
+Test del enunciado aprobado
+
+-------------
+El test del enunciado nuevamente
+Se lanzo pedro
+pedro: vendo a 10
+Se lanzo juan
+juan: vendo a 5
+pedro: 1era. venta rechazada
+pedro: vendo a 7
+pedro: 2da. venta rechazada
+Se lanzo diego
+diego: compro
+diego: ok
+juan: ok
+Test del enunciado aprobado
+
+--------------------
+El test de robustez: se lanzaran 10 compradores y 100 vendedores
+Cada comprador intentara 3000 compras
+Cada . son 1000 compraventas exitosas
+Partieron
+............................
+comp0 hara una pausa de 3 segundos
+comp0 hara la ultima compra
+comp0 hizo 2877 compras
+comp1 hizo 2897 compras
+comp2 hizo 2862 compras
+comp3 hizo 2886 compras
+comp4 hizo 2851 compras
+comp5 hizo 2825 compras
+comp6 hizo 2866 compras
+comp7 hizo 2863 compras
+comp8 hizo 2849 compras
+comp9 hizo 2866 compras
+Se hicieron en total 28642 compras
+Ok
+
+===============================================
+Prueba con spinlocks verdaderos con busywaiting
+===============================================
+
+El test del enunciado
+Se lanzo pedro
+pedro: vendo a 10
+Se lanzo juan
+juan: vendo a 5
+pedro: 1era. venta rechazada
+pedro: vendo a 7
+pedro: 2da. venta rechazada
+Se lanzo diego
+diego: compro
+diego: ok
+juan: ok
+Test del enunciado aprobado
+
+-------------
+El test del enunciado nuevamente
+Se lanzo pedro
+pedro: vendo a 10
+Se lanzo juan
+juan: vendo a 5
+pedro: 1era. venta rechazada
+pedro: vendo a 7
+pedro: 2da. venta rechazada
+Se lanzo diego
+diego: compro
+diego: ok
+juan: ok
+Test del enunciado aprobado
+
+--------------------
+El test de robustez: se lanzaran 10 compradores y 100 vendedores
+Cada comprador intentara 3000 compras
+Cada . son 1000 compraventas exitosas
+Partieron
+...........................
+comp0 hara una pausa de 3 segundos
+comp0 hara la ultima compra
+comp0 hizo 2863 compras
+comp1 hizo 2298 compras
+comp2 hizo 2897 compras
+comp3 hizo 2881 compras
+comp4 hizo 2808 compras
+comp5 hizo 2344 compras
+comp6 hizo 2789 compras
+comp7 hizo 2854 compras
+comp8 hizo 2902 compras
+comp9 hizo 2881 compras
+Se hicieron en total 27517 compras
+Ok
+Felicitaciones.  Su tarea paso todos los tests
